@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletController : MonoBehaviour
+namespace Assets.Scripts
 {
-    public float speed;
-    
-    private Rigidbody2D body;
-
-    private void Start()
+    public class BulletController : MonoBehaviour
     {
-        body = GetComponent<Rigidbody2D>();
+        public float speed;
 
-        body.velocity = new Vector2(0, speed);
-    }
+        private Rigidbody2D body;
 
-    private void Update()
-    {
-        var test = GetComponent<Transform>();
-        if (test.position.y > 10)
-            Destroy(gameObject);
+        private void Start()
+        {
+            body = GetComponent<Rigidbody2D>();
+
+            body.velocity = new Vector2(0, speed);
+        }
+
+        private void Update()
+        {
+            var transform = GetComponent<Transform>();
+            if (World.IsOutOfBounds((Vector2)transform.position))
+                Destroy(gameObject);
+        }
     }
 }
